@@ -17,6 +17,6 @@ class ConferenceController extends AbstractController
           <img src="/images/under-construction.gif"  alt="image"/>
           </body>
           </html>
- EOF);
+        EOF);
     }
 }
