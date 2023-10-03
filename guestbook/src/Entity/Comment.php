@@ -3,13 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
+
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+class Comment implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,19 +28,16 @@ class Comment
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'comments')]
+    #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?self $conference = null;
-
-    #[ORM\OneToMany(mappedBy: 'conference', targetEntity: self::class, orphanRemoval: true)]
-    private Collection $comments;
+    private ?Conference $conference = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoFilename = null;
 
-    public function __construct()
+    public function __toString(): string
     {
-        $this->comments = new ArrayCollection();
+        return (string)$this->getEmail();
     }
 
     public function getId(): ?int
@@ -96,44 +93,14 @@ class Comment
         return $this;
     }
 
-    public function getConference(): ?self
+    public function getConference(): ?Conference
     {
         return $this->conference;
     }
 
-    public function setConference(?self $conference): static
+    public function setConference(?Conference $conference): static
     {
         $this->conference = $conference;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(self $comment): static
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setConference($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(self $comment): static
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getConference() === $this) {
-                $comment->setConference(null);
-            }
-        }
 
         return $this;
     }
