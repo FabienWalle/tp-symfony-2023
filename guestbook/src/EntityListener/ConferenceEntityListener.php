@@ -1,6 +1,7 @@
 <?php
 
 namespace App\EntityListener;
+
 use App\Entity\Conference;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
