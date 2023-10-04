@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}Conference Guestbook{% endblock %}
+{% block body %}
+    <a href="{{ path('admin') }}">Administration</a>
+    <a href="{{ path('homepage') }}">Voir les conférences</a>
+    <h2>Product</h2>
+    {% for product in products %}
+        <h4>{{ product }}</h4>
+        <p>
+            <a href="{{ path('product', { id: product.id }) }}">View</a>
+        </p>
+    {% endfor %}
+{% endblock %}
