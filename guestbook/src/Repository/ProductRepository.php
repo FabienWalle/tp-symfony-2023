@@ -24,21 +24,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function getProductPaginator(Product $product, int $offset): Paginator
-    {
-        $query = $this->createQueryBuilder('c')
-            ->andWhere('c.product = :name')
-            ->setParameter('product', $product)
-            ->orderBy('c.createdAt', 'DESC')
-            ->setMaxResults(self::PAGINATOR_PER_PAGE)
-            ->setFirstResult($offset)
-            ->getQuery()
-        ;
-
-        return new Paginator($query);
-    }
-
-//    /**
+    //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
 //    public function findByExampleField($value): array
