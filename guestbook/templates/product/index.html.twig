@@ -7,7 +7,7 @@
     {% for product in products %}
         <h4>{{ product }}</h4>
         <p>
-            <a href="{{ path('product', { id: product.id }) }}">View</a>
+            <a href="{{ path('app_product', { id: product.id }) }}">View</a>
         </p>
     {% endfor %}
 {% endblock %}
