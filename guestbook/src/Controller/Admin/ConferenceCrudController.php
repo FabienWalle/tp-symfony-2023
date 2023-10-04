@@ -23,5 +23,7 @@ class ConferenceCrudController extends AbstractCrudController
         yield BooleanField::new('isInternational');
         yield TextField::new('slug')
             ->onlyOnIndex();
+        yield DateField::new('created_at')->hideOnForm();
+        yield DateField::new('updated_at')->hideOnForm();
     }
 }

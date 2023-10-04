@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -45,6 +46,7 @@ class CommentCrudController extends AbstractCrudController
         yield TextareaField::new('text');
         yield TextField::new('photoFilename')
             ->onlyOnIndex();
-        yield DateTimeField::new('createdAt')->hideOnForm();
+        yield DateField::new('created_at')->hideOnForm();
+        yield DateField::new('updated_at')->hideOnForm();
     }
 }
