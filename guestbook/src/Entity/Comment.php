@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Trait\TimestampableTrait;
+use App\Enum\CommentStateEnum;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,6 +41,9 @@ use TimestampableTrait;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoFilename = null;
+
+    #[ORM\Column(enumType: CommentStateEnum::class, options :['default' => CommentStateEnum::SUBMITTED])]
+    private CommentStateEnum $state = CommentStateEnum::SUBMITTED;
 
     public function __toString(): string
     {
@@ -107,6 +111,18 @@ use TimestampableTrait;
     public function setPhotoFilename(?string $photoFilename): static
     {
         $this->photoFilename = $photoFilename;
+
+        return $this;
+    }
+
+    public function getState(): CommentStateEnum
+    {
+        return $this->state;
+    }
+
+    public function setState(CommentStateEnum $state): static
+    {
+        $this->state = $state;
 
         return $this;
     }
